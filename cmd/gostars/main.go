@@ -109,5 +109,5 @@ func SprintStringMap(input map[string]interface{}) string {
 		result += fmt.Sprintln(col1st[0:maxLen+1], col2nd)
 	}
 
-	return strings.TrimSpace(result)
+	return "  " + strings.TrimSpace(result)
 }
