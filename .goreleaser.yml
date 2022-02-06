@@ -51,9 +51,9 @@ dist: bin
 builds:
   -
     # Target directory of main.go (Don't forget to change tha path to main.go)
-    main: ./sample
+    main: ./cmd/gostars
     # Output binary name
-    binary: dev-go-sample
+    binary: gostars
     env:
       - CGO_ENABLED=0
     # Target OS
@@ -86,7 +86,7 @@ builds:
 # macOS universal binaries for both arm64 and amd64
 universal_binaries:
   -
-    name_template: 'dev-go-sample'
+    name_template: 'gostars'
     # Combine arm64 and amd64 as a single binary and remove each
     replace: true
 
@@ -112,7 +112,7 @@ checksum:
 brews:
   -
     # Name of the Homebrew package: /<TAP REPO ROOT DIR>/Formula/<name>.rb
-    name: dev-go-sample
+    name: gostars
     # Target repo to tap: KEINOS/homebrew-apps
     tap:
       owner: KEINOS
@@ -120,19 +120,20 @@ brews:
     # Target directory: KEINOS/homebrew-apps/Formula
     folder: Formula
     # URL of the archive in releases page
-    url_template: "https://github.com/KEINOS/dev-go/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    url_template: "https://github.com/KEINOS/gostars/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     # Author info to commit to the tap repo
     commit_author:
       name: goreleaserbot
       email: goreleaser@carlosbecker.com
     # Message to display on `brew search` or `brew info`
-    description: "This is a sample app of github.com/KEINOS/dev-go. It simply prints 'Hello, Gopher!'."
-    homepage: "https://github.com/KEINOS/dev-go/"
+    description: "Prints the attraction gravity of a Go Package."
+    homepage: "https://github.com/KEINOS/gostars/"
     # Let brew command pull the archive via cURL
     download_strategy: CurlDownloadStrategy
-    # Let brew command instll the binary as `dev-go-sample`
+    # Let brew command instll the binary as `gostars`
     install: |
-      bin.install "dev-go-sample"
+      bin.install "gostars"
     # Smoke test to run after install
     test: |
-      system "#{bin}/dev-go-sample --version"
+      system "#{bin}/gostars -h
+      "
