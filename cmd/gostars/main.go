@@ -13,8 +13,9 @@ import (
 // LogFatal is a copy of log.Fatal to ease mock during test.
 var LogFatal = log.Fatal
 
-// OsExit is a copy of os.Exit to ease mock during test.
-var OsExit = os.Exit
+// ----------------------------------------------------------------------------
+//  Main
+// ----------------------------------------------------------------------------
 
 func main() {
 	if len(os.Args) > 1 {
@@ -29,6 +30,18 @@ func main() {
 	}
 }
 
+// ----------------------------------------------------------------------------
+//  Functions
+// ----------------------------------------------------------------------------
+
+// ExitOnError exits with 1 if the err is not nil.
+func ExitOnError(err error) {
+	if err != nil {
+		LogFatal(err)
+	}
+}
+
+// GetInfo returns the package information in uniformed format.
 func GetInfo(namePkg string) (string, error) {
 	var (
 		pkgInfo  *gostars.PkgInfo
@@ -45,13 +58,13 @@ func GetInfo(namePkg string) (string, error) {
 		return "", err
 	}
 
-	// Get dimention values from both package and repository info
+	// Get dimension values from both package and repository info
 	stars := repoInfo.Stars
 	forks := repoInfo.Forks
 	follow := repoInfo.Followers // equivalent to watching
 	importedBy := pkgInfo.ImportedBy
 
-	// Calculate force/attractiveness from the values of dimentions
+	// Calculate force/attractiveness from the values of dimensions
 	gravity := gostars.GetAttractionGravity(
 		stars, forks, follow, importedBy,
 	)
@@ -75,16 +88,14 @@ func GetInfo(namePkg string) (string, error) {
 	return result, nil
 }
 
+// PrintHelp displays the help message.
 func PrintHelp() {
 	fmt.Println("help me")
 }
 
-func ExitOnError(err error) {
-	if err != nil {
-		LogFatal(err)
-	}
-}
-
+// SprintStringMap returns a formatted string from a map input.
+//
+// It will sort by map key and prints as a "key:value" format.
 func SprintStringMap(input map[string]interface{}) string {
 	keys := make([]string, 0)
 	maxLen := 0

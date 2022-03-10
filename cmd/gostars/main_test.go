@@ -153,7 +153,6 @@ func TestExitOnError(t *testing.T) {
 	actual := errCaptured.Error()
 
 	assert.Equal(t, expect, actual)
-
 }
 
 func TestGetInfo_bad_package_name(t *testing.T) {

@@ -49,6 +49,8 @@ func (p *PkgInfo) Update() (err error) {
 	return err
 }
 
+// UpdateImportedBy updates the imported number by other packages if the package
+// name is a valid package in pkg.go.dev.
 func (p *PkgInfo) UpdateImportedBy() error {
 	client := pkggodevclient.New()
 
@@ -65,6 +67,8 @@ func (p *PkgInfo) UpdateImportedBy() error {
 	return nil
 }
 
+// UpdateURLRepository adds "https://" to the repository if the package name
+// is a valid package in pkg.go.dev.
 func (p *PkgInfo) UpdateURLRepository() error {
 	client := pkggodevclient.New()
 
