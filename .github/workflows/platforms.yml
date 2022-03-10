@@ -1,14 +1,15 @@
-# This workflow runs the unit test (`go test ./...`) on vaious platforms,
-# such as: Linux, macOS and Windows.
-name: UnitTests
+# This workflow runs the unit test on vaious platforms such as:
+#   Linux, macOS and Windows
+name: Platforms
 
 on:
   workflow_dispatch:
   pull_request:
+  release:
 
 jobs:
-  coverage:
-    name: Unit test
+  unit_test:
+    name: Platform
 
     strategy:
       matrix:
