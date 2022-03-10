@@ -9,7 +9,7 @@
 #
 # Recommended usage:
 #   docker-compose --file ./.github/docker-compose.yml run tidy && \
-#   docker-compose --file ./.github/docker-compose.yml run 1.14
+#   docker-compose --file ./.github/docker-compose.yml run v1_14
 #
 # NOT recommended to run all tests at once whith "up":
 #   docker-compose --file ./.github/docker-compose.yml up
@@ -21,7 +21,7 @@ services:
       context: ..
       dockerfile: ./.github/Dockerfile
       args:
-        VARIANT: 1.14-alpine
+        VARIANT: alpine
     volumes:
       - ..:/workspaces
     entrypoint: [ "./.github/go-mod-tidy.sh" ]
