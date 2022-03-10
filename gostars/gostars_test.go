@@ -45,8 +45,8 @@ func TestGetContentURL(t *testing.T) {
 		contain string
 	}{
 		{"https://github.com/KEINOS/" + string([]byte{0x7f}), "failed to parse URL before request"},
-		{"https://foo.bar.com/", "no such host"},
-		{"https://github.com/KEINOS/unknownrepo/", "failed to featch"},
+		{"https://foo.bar.com/", "dial tcp: lookup foo.bar.com"},
+		{"https://github.com/KEINOS/unknownrepo/", "returned status: 404"},
 		{"https://github.com/KEINOS/dev-go/", "failed to copy response data"},
 	} {
 		_, err := gostars.GetContentURL(test.url)
