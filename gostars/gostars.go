@@ -73,7 +73,7 @@ func GetContentURL(urlTarget string) ([]byte, error) {
 		return nil, errors.Wrap(err, "failed to build HTTP request")
 	}
 
-	client := &http.Client{}
+	client := http.DefaultClient
 
 	response, err := client.Do(req)
 	if err != nil {
