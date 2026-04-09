@@ -2,6 +2,7 @@ package gostars
 
 import (
 	"bytes"
+	"context"
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
@@ -62,7 +63,19 @@ func GetContentURL(urlTarget string) ([]byte, error) {
 		return nil, errors.Wrap(err, "failed to parse URL before request")
 	}
 
-	response, err := http.Get(urlParsed.String())
+	req, err := http.NewRequestWithContext(
+		context.Background(),
+		http.MethodGet,
+		urlParsed.String(),
+		http.NoBody,
+	)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to build HTTP request")
+	}
+
+	client := &http.Client{}
+
+	response, err := client.Do(req)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to fetch contents from the URL")
 	}
