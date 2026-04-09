@@ -40,7 +40,7 @@ func TestGetContentURL(t *testing.T) {
 	}()
 
 	// Mock IOCopy to force error
-	gostars.IOCopy = func(_ io.Writer, _ io.Reader) (written int64, err error) {
+	gostars.IOCopy = func(_ io.Writer, _ io.Reader) (int64, error) {
 		return 0, errors.New("forced error")
 	}
 
