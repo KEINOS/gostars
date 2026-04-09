@@ -67,7 +67,9 @@ func GetContentURL(urlTarget string) ([]byte, error) {
 		return nil, errors.Wrap(err, "failed to fetch contents from the URL")
 	}
 
-	defer response.Body.Close()
+	defer func() {
+		_ = response.Body.Close()
+	}()
 
 	if response.StatusCode != http.StatusOK {
 		return nil, errors.Errorf("failed to featch. returned status: %v",
