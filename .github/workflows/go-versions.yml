@@ -1,4 +1,4 @@
-name: go1.14+
+name: Go Versions
 
 on:
   workflow_dispatch:
@@ -20,49 +20,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v6
 
-      - name: Create image tag
-        id: imagetag
-        run: |
-          HASH_IMAGE=${{ hashFiles('./.github/Dockerfile') }}
-          VARIANT=$(TZ=UTC-9 date '+%Y%m')
-          TAG="${HASH_IMAGE:0:7}:${VARIANT}"
-          PATH_TAR=${{ env.PATH_CACHE }}"/tar"
-          echo "TAG=${TAG}" >> "$GITHUB_OUTPUT"
-          echo "PATH_TAR=${PATH_TAR}" >> "$GITHUB_OUTPUT"
-
-      - name: Cache or restore image archive
-        id: cache
-        uses: actions/cache@v5
-        with:
-          path: ${{ env.PATH_CACHE }}
-          key: ${{ steps.imagetag.outputs.TAG }}
-
-      - name: Load Docker images if exist
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: |
-          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_min_1.tar
-          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_latest_1.tar
-
-      - name: Pull base images if no-exist
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          : # Pull images one-by-one for stability
-          docker pull golang:alpine
-
-      - name: Build Docker images if no-exists
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          mkdir -p ${{ steps.imagetag.outputs.PATH_TAR }}
-          : # Build container images
-          docker compose --file ./.github/docker-compose.yml build
-
-      - name: Save built images if no-exists
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_min_1.tar github_min:latest
-          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_latest_1.tar github_latest:latest
-
       - name: Run tests on minimum supported Go version
         run: docker compose --file ./.github/docker-compose.yml run min
+
       - name: Run tests on latest Go
         run: docker compose --file ./.github/docker-compose.yml run latest

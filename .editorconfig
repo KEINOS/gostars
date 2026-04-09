@@ -28,6 +28,6 @@ function_next_line = false  # disable shfmt -fn
 
 [*.{yml,yaml,json}]
 indent_style = space
-indent_size = 4
+indent_size = 2
 insert_final_newline = false
 quote_type = single
