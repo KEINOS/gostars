@@ -98,7 +98,7 @@ func PrintHelp() {
 //
 // It will sort by map key and prints as a "key:value" format.
 func SprintStringMap(input map[string]any) string {
-	keys := make([]string, 0)
+	keys := make([]string, 0, len(input))
 	maxLen := 0
 
 	for key := range input {
