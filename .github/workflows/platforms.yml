@@ -22,19 +22,8 @@ jobs:
 
       - uses: actions/setup-go@v6
         with:
-          go-version: '^1.17'
-
-      - name: Use Cache
-        uses: actions/cache@v5
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
-      - name: Download Modules
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: go mod download
+          go-version: '1'
+          cache: 'go'
 
       - name: Run unit test
         run: |
