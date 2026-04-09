@@ -28,7 +28,7 @@ func CoolDown() {
 	//   Authenticated request: 5,000 req/hour ≅ 1.4 req/sec
 	sleepSec := 1
 
-	time.Sleep(time.Duration(sleepSec*1000) * time.Millisecond)
+	time.Sleep(time.Duration(sleepSec) * time.Second)
 }
 
 // GetAttractionGravity returns the distance from the point 0 to the point of

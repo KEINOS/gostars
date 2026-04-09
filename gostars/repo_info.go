@@ -136,9 +136,11 @@ func (r *RepoInfo) getNameOwner() (string, error) {
 
 // Name returns the name from the repository from the URL.
 func (r *RepoInfo) getNameRepo() (string, error) {
+	const minRepoPathLength = 2
+
 	path := r.URL.Path
 
-	if len(path) < 2 {
+	if len(path) < minRepoPathLength {
 		return "", errors.New("invalid URL format. missing repo owner and/or repo name")
 	}
 
