@@ -14,7 +14,7 @@ import (
 type PkgInfo struct {
 	Name       string `json:"name"`        // Name of the package
 	Repository string `json:"repository"`  // Repository URL of the package
-	ImportedBy int    `json:"imported_by"` // Number of packages that imports this package
+	ImportedBy int    `json:"importedBy"`  // Number of packages that imports this package
 }
 
 // ============================================================================
