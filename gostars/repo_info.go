@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/pkg/errors"
 
@@ -44,7 +45,13 @@ func NewRepoInfo(urlRepo string) (*RepoInfo, error) {
 	}
 
 	repoInfo := &RepoInfo{
-		URL: urlInfo,
+		URL:         urlInfo,
+		Description: "",
+		Name:        "",
+		Owner:       "",
+		Stars:       0,
+		Forks:       0,
+		Followers:   0,
 	}
 
 	if !strings.Contains(urlRepo, "https://github.com/") {
@@ -88,7 +95,13 @@ func (r *RepoInfo) Update() error {
 
 	if GithubToken != "" {
 		ts := oauth2.StaticTokenSource(
-			&oauth2.Token{AccessToken: GithubToken},
+			&oauth2.Token{
+				AccessToken:  GithubToken,
+				TokenType:    "",
+				RefreshToken: "",
+				Expiry:       time.Time{},
+				ExpiresIn:    0,
+			},
 		)
 		tc := oauth2.NewClient(ctx, ts)
 

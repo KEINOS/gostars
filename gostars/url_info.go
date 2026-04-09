@@ -25,7 +25,12 @@ type URLInfo struct {
 
 // NewURLInfo returns the initialized object of URLInfo from urlTarget.
 func NewURLInfo(urlTarget string) (*URLInfo, error) {
-	urlInfo := URLInfo{RawURL: urlTarget}
+	urlInfo := URLInfo{
+		RawURL: urlTarget,
+		Scheme: "",
+		Host:   "",
+		Path:   []string{},
+	}
 
 	err := urlInfo.parse()
 	if err != nil {

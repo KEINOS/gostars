@@ -24,7 +24,9 @@ type PkgInfo struct {
 // NewPkgInfo returns the initialized object of PkgInfo from pkagName.
 func NewPkgInfo(pkgName string) (*PkgInfo, error) {
 	pkgInfo := &PkgInfo{
-		Name: pkgName,
+		Name:       pkgName,
+		Repository: "",
+		ImportedBy: 0,
 	}
 
 	err := pkgInfo.Update()

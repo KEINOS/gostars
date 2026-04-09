@@ -131,7 +131,9 @@ func TestUpdateURLRepository_fail(t *testing.T) {
 	t.Parallel()
 
 	pkgInfo := &gostars.PkgInfo{
-		Name: "github.com/KEINOS/undefined",
+		Name:       "github.com/KEINOS/undefined",
+		Repository: "",
+		ImportedBy: 0,
 	}
 
 	err := pkgInfo.UpdateURLRepository()
@@ -175,9 +177,13 @@ func TestRepoInfo_Update_bad_credential(t *testing.T) {
 	gostars.GithubToken = "<undefined>"
 
 	repoInfo := gostars.RepoInfo{
-		Name:  "dev-go",
-		Owner: "KEINOS",
-		URL:   new(gostars.URLInfo),
+		URL:         new(gostars.URLInfo),
+		Description: "",
+		Name:        "dev-go",
+		Owner:       "KEINOS",
+		Stars:       0,
+		Forks:       0,
+		Followers:   0,
 	}
 
 	err := repoInfo.Update()
