@@ -23,7 +23,7 @@ func main() {
 			info, err := GetInfo(namePackage)
 			ExitOnError(err)
 
-			fmt.Println(info)
+			fmt.Fprintln(os.Stdout, info)
 		}
 	} else {
 		PrintHelp()
@@ -90,7 +90,7 @@ func GetInfo(namePkg string) (string, error) {
 
 // PrintHelp displays the help message.
 func PrintHelp() {
-	fmt.Println("help me")
+	fmt.Fprintln(os.Stdout, "help me")
 }
 
 // SprintStringMap returns a formatted string from a map input.
