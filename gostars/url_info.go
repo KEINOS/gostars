@@ -49,6 +49,11 @@ func (u *URLInfo) IsRepoGitHub() bool {
 	return u.Host == "github.com"
 }
 
+// String is an implementation of Stringer.
+func (u *URLInfo) String() string {
+	return u.RawURL
+}
+
 func (u *URLInfo) parse() error {
 	parsed, err := url.Parse(u.RawURL)
 	if err != nil {
@@ -72,9 +77,4 @@ func (u *URLInfo) parse() error {
 	u.Path = pathClean
 
 	return nil
-}
-
-// String is an implementation of Stringer.
-func (u *URLInfo) String() string {
-	return u.RawURL
 }
