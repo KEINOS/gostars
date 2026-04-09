@@ -1,3 +1,4 @@
+// Package gostars provides utilities to fetch and score GitHub package popularity.
 package gostars
 
 import "io"

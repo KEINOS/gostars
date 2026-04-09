@@ -1,3 +1,4 @@
+// Package main provides the CLI entrypoint for gostars.
 package main
 
 import (
