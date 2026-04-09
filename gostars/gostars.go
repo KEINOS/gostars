@@ -123,6 +123,7 @@ func Hash256(input []byte) string {
 // jQuery-like manner. Powered by GoQuery.
 func NewQuery(sourceHTML []byte) (*goquery.Document, error) {
 	buf := bytes.NewBuffer(sourceHTML)
+
 	doc, err := goquery.NewDocumentFromReader(buf)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to parse HTML by goquery")

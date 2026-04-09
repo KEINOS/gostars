@@ -12,9 +12,9 @@ import (
 // PkgInfo holds information about the package from pkg.go.dev.
 // It is mainly used to obtain the number of packages using this package.
 type PkgInfo struct {
-	Name       string `json:"name"`        // Name of the package
-	Repository string `json:"repository"`  // Repository URL of the package
-	ImportedBy int    `json:"importedBy"`  // Number of packages that imports this package
+	Name       string `json:"name"`       // Name of the package
+	Repository string `json:"repository"` // Repository URL of the package
+	ImportedBy int    `json:"importedBy"` // Number of packages that imports this package
 }
 
 // ============================================================================
@@ -46,7 +46,6 @@ func (p *PkgInfo) Update() error {
 	CoolDown()
 
 	err := p.UpdateImportedBy()
-
 	if err == nil {
 		err = p.UpdateURLRepository()
 	}
