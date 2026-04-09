@@ -128,7 +128,7 @@ func NewQuery(sourceHTML []byte) (*goquery.Document, error) {
 }
 
 // ParseMarkdownToHTML parses the markdown content to HTML.
-func ParseMarkdownToHTML(markdown []byte) (html string) {
+func ParseMarkdownToHTML(markdown []byte) string {
 	return fmt.Sprintf("<body>%s</body>", blackfriday.MarkdownCommon(markdown))
 }
 

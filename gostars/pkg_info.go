@@ -42,10 +42,11 @@ func NewPkgInfo(pkgName string) (*PkgInfo, error) {
 // ============================================================================
 
 // Update pulls the package information and sets to the according field.
-func (p *PkgInfo) Update() (err error) {
+func (p *PkgInfo) Update() error {
 	CoolDown()
 
-	err = p.UpdateImportedBy()
+	err := p.UpdateImportedBy()
+
 	if err == nil {
 		err = p.UpdateURLRepository()
 	}
