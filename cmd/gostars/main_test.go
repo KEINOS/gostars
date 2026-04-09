@@ -56,7 +56,7 @@ func ExampleGetInfo() {
 }
 
 func ExampleSprintStringMap() {
-	input := map[string]interface{}{
+	input := map[string]any{
 		"ten":      10,
 		"thousand": 1000,
 		"eleven":   11,
@@ -76,9 +76,11 @@ func ExampleSprintStringMap() {
 //  Tests
 // ----------------------------------------------------------------------------
 
+//nolint:paralleltest // due to the global variable change
 func Test_main_golden(t *testing.T) {
 	// Backup and defer restore
 	oldOsArgs := os.Args
+
 	defer func() {
 		os.Args = oldOsArgs
 	}()
@@ -107,9 +109,11 @@ func Test_main_golden(t *testing.T) {
 	}
 }
 
+//nolint:paralleltest // due to the global variable change
 func Test_main_help(t *testing.T) {
 	// Backup and defer restore
 	oldOsArgs := os.Args
+
 	defer func() {
 		os.Args = oldOsArgs
 	}()
@@ -126,9 +130,11 @@ func Test_main_help(t *testing.T) {
 	assert.Contains(t, out, "help me")
 }
 
+//nolint:paralleltest // due to the global variable change
 func TestExitOnError(t *testing.T) {
 	// Backup and defer restore
 	oldLogFatal := LogFatal
+
 	defer func() {
 		LogFatal = oldLogFatal
 	}()
@@ -140,7 +146,7 @@ func TestExitOnError(t *testing.T) {
 	)
 
 	// Mock LogFatal and capture the given arg
-	LogFatal = func(v ...interface{}) {
+	LogFatal = func(v ...any) {
 		errCaptured, ok = v[0].(error)
 
 		require.True(t, ok)
@@ -156,6 +162,8 @@ func TestExitOnError(t *testing.T) {
 }
 
 func TestGetInfo_bad_package_name(t *testing.T) {
+	t.Parallel()
+
 	namePkg := "github.com/KEINOS/undefined"
 	expectErr := "failed to get 'imported by' information"
 

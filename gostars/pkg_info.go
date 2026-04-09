@@ -27,7 +27,8 @@ func NewPkgInfo(pkgName string) (*PkgInfo, error) {
 		Name: pkgName,
 	}
 
-	if err := pkgInfo.Update(); err != nil {
+	err := pkgInfo.Update()
+	if err != nil {
 		return nil, err
 	}
 
@@ -42,7 +43,8 @@ func NewPkgInfo(pkgName string) (*PkgInfo, error) {
 func (p *PkgInfo) Update() (err error) {
 	CoolDown()
 
-	if err = p.UpdateImportedBy(); err == nil {
+	err = p.UpdateImportedBy()
+	if err == nil {
 		err = p.UpdateURLRepository()
 	}
 

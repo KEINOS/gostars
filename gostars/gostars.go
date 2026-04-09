@@ -69,7 +69,7 @@ func GetContentURL(urlTarget string) ([]byte, error) {
 
 	defer response.Body.Close()
 
-	if response.StatusCode != 200 {
+	if response.StatusCode != http.StatusOK {
 		return nil, errors.Errorf("failed to featch. returned status: %v",
 			response.StatusCode)
 	}
@@ -77,7 +77,8 @@ func GetContentURL(urlTarget string) ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Copy data from the response to the buffer
-	if _, err = IOCopy(buf, response.Body); err != nil {
+	_, err = IOCopy(buf, response.Body)
+	if err != nil {
 		return nil, errors.Wrap(err, "failed to copy response data")
 	}
 
@@ -117,7 +118,7 @@ func ParseMarkdownToHTML(markdown []byte) (html string) {
 }
 
 // PrettyFormatJSON is a formatter for printing objects in a pretty way.
-func PrettyFormatJSON(v interface{}) (string, error) {
+func PrettyFormatJSON(v any) (string, error) {
 	byteJSON, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
 		return "", errors.Wrap(err, "failed to marshal")

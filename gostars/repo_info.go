@@ -3,6 +3,7 @@ package gostars
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/pkg/errors"
@@ -65,7 +66,8 @@ func NewRepoInfo(urlRepo string) (*RepoInfo, error) {
 	repoInfo.Name = nameRepo
 
 	// Update other field
-	if err := repoInfo.Update(); err != nil {
+	err = repoInfo.Update()
+	if err != nil {
 		return nil, errors.Wrap(err, "failed to update repository info")
 	}
 
@@ -94,7 +96,7 @@ func (r *RepoInfo) Update() error {
 	}
 
 	repo, resp, err := client.Repositories.Get(ctx, r.Owner, r.Name)
-	if err != nil || resp.StatusCode != 200 {
+	if err != nil || resp.StatusCode != http.StatusOK {
 		msgErr := fmt.Sprintf("faild to get repository info. Returned status: %v", resp.StatusCode)
 
 		return errors.Wrap(err, msgErr)

@@ -18,6 +18,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestCoolDown(t *testing.T) {
+	t.Parallel()
+
 	start := time.Now()
 
 	// Cool down
@@ -28,9 +30,11 @@ func TestCoolDown(t *testing.T) {
 	assert.GreaterOrEqual(t, e1, e2, "it should sleep more than equal to 1 second")
 }
 
+//nolint:paralleltest // due to the global variable change
 func TestGetContentURL(t *testing.T) {
 	// Backup and defer restore
 	oldIOCopy := gostars.IOCopy
+
 	defer func() {
 		gostars.IOCopy = oldIOCopy
 	}()
@@ -57,6 +61,8 @@ func TestGetContentURL(t *testing.T) {
 }
 
 func TestGetDistance(t *testing.T) {
+	t.Parallel()
+
 	for _, test := range []struct {
 		name   string
 		args   []int
@@ -83,6 +89,8 @@ func TestGetDistance(t *testing.T) {
 }
 
 func TestGetURLGitHub(t *testing.T) {
+	t.Parallel()
+
 	// URL not in the aliases list
 	urlUnknown := "https://foo.bar/"
 
@@ -93,6 +101,8 @@ func TestGetURLGitHub(t *testing.T) {
 }
 
 func TestPrettyFormatJSON(t *testing.T) {
+	t.Parallel()
+
 	foo := func() {}
 
 	output, err := gostars.PrettyFormatJSON(foo)
@@ -106,6 +116,8 @@ func TestPrettyFormatJSON(t *testing.T) {
 // ----------------------------------------------------------------------------
 
 func TestPkgInfo_bad_package_name(t *testing.T) {
+	t.Parallel()
+
 	namePkg := "github.com/KEINOS/undefined"
 
 	pkgInfo, err := gostars.NewPkgInfo(namePkg)
@@ -116,6 +128,8 @@ func TestPkgInfo_bad_package_name(t *testing.T) {
 }
 
 func TestUpdateURLRepository_fail(t *testing.T) {
+	t.Parallel()
+
 	pkgInfo := &gostars.PkgInfo{
 		Name: "github.com/KEINOS/undefined",
 	}
@@ -130,6 +144,8 @@ func TestUpdateURLRepository_fail(t *testing.T) {
 // ----------------------------------------------------------------------------
 
 func TestRepoInfo_bad_url(t *testing.T) {
+	t.Parallel()
+
 	for _, test := range []struct {
 		url     string
 		contain string
@@ -148,8 +164,10 @@ func TestRepoInfo_bad_url(t *testing.T) {
 	}
 }
 
+//nolint:paralleltest // due to the global variable change
 func TestRepoInfo_Update_bad_credential(t *testing.T) {
 	oldGithubToken := gostars.GithubToken
+
 	defer func() {
 		gostars.GithubToken = oldGithubToken
 	}()

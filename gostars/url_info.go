@@ -27,7 +27,8 @@ type URLInfo struct {
 func NewURLInfo(urlTarget string) (*URLInfo, error) {
 	urlInfo := URLInfo{RawURL: urlTarget}
 
-	if err := urlInfo.parse(); err != nil {
+	err := urlInfo.parse()
+	if err != nil {
 		return nil, err
 	}
 

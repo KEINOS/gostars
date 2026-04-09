@@ -73,7 +73,7 @@ func GetInfo(namePkg string) (string, error) {
 
 	result := fmt.Sprintln("-", repoInfo.Name)
 
-	items := map[string]interface{}{
+	items := map[string]any{
 		indent + "1. Gravity":      gravity,
 		indent + "2. Package Name": pkgInfo.Name,
 		indent + "3. URL":          pkgInfo.Repository,
@@ -96,7 +96,7 @@ func PrintHelp() {
 // SprintStringMap returns a formatted string from a map input.
 //
 // It will sort by map key and prints as a "key:value" format.
-func SprintStringMap(input map[string]interface{}) string {
+func SprintStringMap(input map[string]any) string {
 	keys := make([]string, 0)
 	maxLen := 0
 
@@ -113,12 +113,16 @@ func SprintStringMap(input map[string]interface{}) string {
 	padding := strings.Repeat(" ", maxLen)
 	result := ""
 
+	var resultSb116 strings.Builder
+
 	for _, key := range keys {
 		col1st := key + ":" + padding
 		col2nd := input[key]
 
-		result += fmt.Sprintln(col1st[0:maxLen+1], col2nd)
+		fmt.Fprintln(&resultSb116, col1st[0:maxLen+1], col2nd)
 	}
+
+	result += resultSb116.String()
 
 	return "  " + strings.TrimSpace(result)
 }
