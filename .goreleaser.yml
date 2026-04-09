@@ -93,11 +93,6 @@ universal_binaries:
 # Archiving the built binaries
 archives:
   -
-    replacements:
-      darwin: macOS
-      linux: Linux
-      windows: Windows
-      amd64: x86_64
     format_overrides:
       - goos: windows
         format: zip
@@ -114,11 +109,11 @@ brews:
     # Name of the Homebrew package: /<TAP REPO ROOT DIR>/Formula/<name>.rb
     name: gostars
     # Target repo to tap: KEINOS/homebrew-apps
-    tap:
+    repository:
       owner: KEINOS
       name: homebrew-apps
     # Target directory: KEINOS/homebrew-apps/Formula
-    folder: Formula
+    directory: Formula
     # URL of the archive in releases page
     url_template: "https://github.com/KEINOS/gostars/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     # Author info to commit to the tap repo
@@ -135,5 +130,4 @@ brews:
       bin.install "gostars"
     # Smoke test to run after install
     test: |
-      system "#{bin}/gostars -h
-      "
+      system "#{bin}/gostars -h"
