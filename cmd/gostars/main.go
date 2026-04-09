@@ -50,7 +50,8 @@ func GetInfo(namePkg string) (string, error) {
 	)
 
 	// Get package and repository info
-	if pkgInfo, err = gostars.NewPkgInfo(namePkg); err == nil {
+	pkgInfo, err = gostars.NewPkgInfo(namePkg)
+	if err == nil {
 		repoInfo, err = gostars.NewRepoInfo(pkgInfo.Repository)
 	}
 
