@@ -58,7 +58,7 @@ func GetInfo(namePkg string) (string, error) {
 	}
 
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to get package/repository info: %w", err)
 	}
 
 	// Get dimension values from both package and repository info
