@@ -79,13 +79,13 @@ func TestGetDistance(t *testing.T) {
 		assert.Equal(t, expect, actual, "failed test: %v", test.name)
 	}
 
-	p1 := gostars.GetAttractionGravity(10, 10, 10, 10)
-	p2 := gostars.GetAttractionGravity(100, 10, 10, 10)
-	assert.Greater(t, p2, p1, "greater point should have more distance")
+	pointBase := gostars.GetAttractionGravity(10, 10, 10, 10)
+	pointLarge := gostars.GetAttractionGravity(100, 10, 10, 10)
+	assert.Greater(t, pointLarge, pointBase, "greater point should have more distance")
 
-	p1 = gostars.GetAttractionGravity(10, 10, 10, 10)
-	p2 = gostars.GetAttractionGravity(-10, -10, -10, -10)
-	assert.Equal(t, p1, p2, "negative position but same distance should be equal")
+	pointBase = gostars.GetAttractionGravity(10, 10, 10, 10)
+	pointNegative := gostars.GetAttractionGravity(-10, -10, -10, -10)
+	assert.Equal(t, pointBase, pointNegative, "negative position but same distance should be equal")
 }
 
 func TestGetURLGitHub(t *testing.T) {

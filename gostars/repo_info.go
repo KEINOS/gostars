@@ -94,7 +94,7 @@ func (r *RepoInfo) Update() error {
 	client := github.NewClient(nil)
 
 	if GithubToken != "" {
-		ts := oauth2.StaticTokenSource(
+		tokenSource := oauth2.StaticTokenSource(
 			&oauth2.Token{
 				AccessToken:  GithubToken,
 				TokenType:    "",
@@ -103,9 +103,9 @@ func (r *RepoInfo) Update() error {
 				ExpiresIn:    0,
 			},
 		)
-		tc := oauth2.NewClient(ctx, ts)
+		tokenClient := oauth2.NewClient(ctx, tokenSource)
 
-		client = github.NewClient(tc)
+		client = github.NewClient(tokenClient)
 	}
 
 	repo, resp, err := client.Repositories.Get(ctx, r.Owner, r.Name)
