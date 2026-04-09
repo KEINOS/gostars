@@ -13,6 +13,8 @@ import (
 	"github.com/zenizh/go-capturer"
 )
 
+var errForced = errors.New("forced error")
+
 // ----------------------------------------------------------------------------
 //  Examples (Tests for golden-cases)
 // ----------------------------------------------------------------------------
@@ -140,7 +142,7 @@ func TestExitOnError(t *testing.T) {
 	}()
 
 	var (
-		errDummy    = errors.New("forced error")
+		errDummy    = errForced
 		errCaptured error
 		ok          bool
 	)
