@@ -1,18 +1,16 @@
 # This workflow updates the code coverage of Codecov.
 # It runs the unit test and pushes the measured code coverage analysis.
 name: "Codecov"
-
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ main ]
+    branches: [main]
   schedule:
     # Runs at 16:40 UTC on day-of-month 1 (Every day-of-month 1 at AM 01:40 JST, my time)
     # See: https://crontab.guru/
     - cron: '40 16 1 * *'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,6 +24,6 @@ jobs:
       - name: Run coverage
         run: go test -coverprofile=coverage.out -covermode=atomic ./...
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           files: coverage.out

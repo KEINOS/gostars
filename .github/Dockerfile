@@ -2,7 +2,7 @@
 #  Test Container for Vaious Go Versions
 # =============================================================================
 # Default minimum version
-ARG VARIANT="1.24-alpine"
+ARG VARIANT="1.25-alpine"
 
 # -----------------------------------------------------------------------------
 #  Main Stage
@@ -16,4 +16,4 @@ RUN apk add --no-cache \
 
 WORKDIR /workspaces
 
-ENTRYPOINT go mod download && go test -race ./...
+ENTRYPOINT ["sh", "-c", "go mod download && go test -race ./..."]
